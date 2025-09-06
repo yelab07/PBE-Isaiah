@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NKJV Bible - Isaiah Chapter 1 with Questions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #8e44ad;
+            --accent-color: #e74c3c;
+            --light-color: #f9f9f9;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --correct-color: #2ecc71;
+            --incorrect-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: #f1c40f;
+        }
+        
+        .logo span {
+            color: #f1c40f;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .chapter-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        .verses {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .verse {
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 3px solid transparent;
+            transition: border-color 0.3s;
+        }
+        
+        .verse:hover {
+            border-left-color: var(--secondary-color);
+        }
+        
+        .verse-number {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-right: 0.5rem;
+        }
+        
+        .verse-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .questions-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .questions-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .question {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .question-verse {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .option input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .option label {
+            cursor: pointer;
+        }
+        
+        .check-answer {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .check-answer:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .answer-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            display: none;
+        }
+        
+        .correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid var(--correct-color);
+        }
+        
+        .incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid var(--incorrect-color);
+        }
+        
+        .results-summary {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 2rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .results-title {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .reset-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .book-info {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+        
+        .book-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .chapter-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .verses, .questions-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-bible"></i>
+            <div>NKJV <span>Bible</span></div>
+        </div>
+        <p class="subtitle">Isaiah Chapter 1 with Questions & Answers</p>
+    </header>
+    
+    <div class="container">
+        <div class="chapter-header">
+            <h1 class="chapter-title">Isaiah Chapter 1</h1>
+        </div>
+        
+        <div class="verses">
+            <div class="verse">
+                <span class="verse-number">1</span>
+                <span class="verse-text">The vision of Isaiah the son of Amoz, which he saw concerning Judah and Jerusalem in the days of Uzziah, Jotham, Ahaz, and Hezekiah, kings of Judah.</span>
+            </div>
+            <div class="verse">
+                <span class="verse-number">2</span>
+                <span class="verse-text">Hear, O heavens, and give ear, O earth! For the Lord has spoken: "I have nourished and brought up children, and they have rebelled against Me;"</span>
+            </div>
+            <div class="verse">
+                <span class="verse-number">3</span>
+                <span class="verse-text">The ox knows its owner and the donkey its master's crib; But Israel does not know, My people do not consider.</span>
+            </div>
+            <div class="verse">
+                <span class="verse-number">4</span>
+                <span class="verse-text">Alas, sinful nation, a people laden with iniquity, a brood of evildoers, children who are corrupters! They have forsaken the Lord, they have provoked to anger the Holy One of Israel, they have turned away backward.</span>
+            </div>
+            <div class="verse">
+                <span class="verse-number">5</span>
+                <span class="verse-text">Why should you be stricken again? You will revolt more and more. The whole head is sick, and the whole heart faints.</span>
+            </div>
+            <div class="verse">
+                <span class="verse-number">6</span>
+                <span class="verse-text">From the sole of the foot even to the head, there is no soundness in it, but wounds and bruises and putrefying sores; They have not been closed or bound up, or soothed with ointment.</span>
+            </div>
+            <div class="verse">
+                <span class="verse-number">7</span>
+                <span class="verse-text">Your country is desolate, your cities are burned with fire; Strangers devour your land in your presence; and it is desolate, as overthrown by strangers.</span>
+            </div>
+            <div class="verse">
+                <span class="verse-number">8</span>
+                <span class="verse-text">So the daughter of Zion is left as a booth in a vineyard, as a hut in a garden of cucumbers, as a besieged city.</span>
+            </div>
+            <div class="verse">
+                <span class="verse-number">9</span>
+                <span class="verse-text">Unless the Lord of hosts had left to us a very small remnant, we would have become like Sodom, we would have been made like Gomorrah.</span>
+            </div>
+            <div class="verse">
+                <span class="verse-number">10</span>
+                <span class="verse-text">Hear the word of the Lord, you rulers of Sodom; give ear to the law of our God, you people of Gomorrah:</span>
+            </div>
+        </div>
+        
+        <div class="questions-section">
+            <h2 class="questions-title">Chapter 1 - Multiple Choice Questions</h2>
+            
+            <div class="question" data-verse="1">
+                <div class="question-header">
+                    <span class="question-verse">Verse 1</span>
+                </div>
+                <div class="question-text">Who received the vision described in Isaiah 1:1?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-1" id="q1-option1" value="A">
+                        <label for="q1-option1">A) Isaiah the son of Amoz</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-1" id="q1-option2" value="B">
+                        <label for="q1-option2">B) Jeremiah the prophet</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-1" id="q1-option3" value="C">
+                        <label for="q1-option3">C) King Uzziah</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-1" id="q1-option4" value="D">
+                        <label for="q1-option4">D) Ezekiel the priest</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="1">Check Answer</button>
+                <div class="answer-feedback" id="feedback-1">
+                    <strong>Correct Answer:</strong> A) Isaiah the son of Amoz<br>
+                    <strong>Explanation:</strong> The verse clearly states "The vision of Isaiah the son of Amoz."
+                </div>
+            </div>
+            
+            <div class="question" data-verse="2">
+                <div class="question-header">
+                    <span class="question-verse">Verse 2</span>
+                </div>
+                <div class="question-text">According to Isaiah 1:2, who is called to hear the word of the Lord?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-2" id="q2-option1" value="A">
+                        <label for="q2-option1">A) The heavens and the earth</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-2" id="q2-option2" value="B">
+                        <label for="q2-option2">B) The kings of Judah</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-2" id="q2-option3" value="C">
+                        <label for="q2-option3">C) The people of Jerusalem</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-2" id="q2-option4" value="D">
+                        <label for="q2-option4">D) The prophets of Israel</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="2">Check Answer</button>
+                <div class="answer-feedback" id="feedback-2">
+                    <strong>Correct Answer:</strong> A) The heavens and the earth<br>
+                    <strong>Explanation:</strong> The verse begins with "Hear, O heavens, and give ear, O earth!"
+                </div>
+            </div>
+            
+            <div class="question" data-verse="3">
+                <div class="question-header">
+                    <span class="question-verse">Verse 3</span>
+                </div>
+                <div class="question-text">In Isaiah 1:3, what animals are mentioned as knowing their owners?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-3" id="q3-option1" value="A">
+                        <label for="q3-option1">A) The ox and the donkey</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-3" id="q3-option2" value="B">
+                        <label for="q3-option2">B) The sheep and the goats</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-3" id="q3-option3" value="C">
+                        <label for="q3-option3">C) The lion and the bear</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-3" int="q3-option4" value="D">
+                        <label for="q3-option4">D) The eagle and the serpent</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="3">Check Answer</button>
+                <div class="answer-feedback" id="feedback-3">
+                    <strong>Correct Answer:</strong> A) The ox and the donkey<br>
+                    <strong>Explanation:</strong> The verse states "The ox knows its owner and the donkey its master's crib."
+                </div>
+            </div>
+            
+            <div class="question" data-verse="4">
+                <div class="question-header">
+                    <span class="question-verse">Verse 4</span>
+                </div>
+                <div class="question-text">How does Isaiah 1:4 describe the nation of Israel?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-4" id="q4-option1" value="A">
+                        <label for="q4-option1">A) Sinful nation, laden with iniquity</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-4" id="q4-option2" value="B">
+                        <label for="q4-option2">B) Righteous nation, blessed by God</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-4" id="q4-option3" value="C">
+                        <label for="q4-option3">C) Powerful nation, feared by others</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-4" id="q4-option4" value="D">
+                        <label for="q4-option4">D) Wealthy nation, abundant in resources</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="4">Check Answer</button>
+                <div class="answer-feedback" id="feedback-4">
+                    <strong>Correct Answer:</strong> A) Sinful nation, laden with iniquity<br>
+                    <strong>Explanation:</strong> The verse describes them as "sinful nation, a people laden with iniquity, a brood of evildoers."
+                </div>
+            </div>
+            
+            <div class="question" data-verse="5">
+                <div class="question-header">
+                    <span class="question-verse">Verse 5</span>
+                </div>
+                <div class="question-text">According to Isaiah 1:5, what parts of the body are described as sick and faint?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-5" id="q5-option1" value="A">
+                        <label for="q5-option1">A) The whole head and the whole heart</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-5" id="q5-option2" value="B">
+                        <label for="q5-option2">B) The hands and the feet</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-5" id="q5-option3" value="C">
+                        <label for="q5-option3">C) The eyes and the ears</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-5" id="q5-option4" value="D">
+                        <label for="q5-option4">D) The mouth and the tongue</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="5">Check Answer</button>
+                <div class="answer-feedback" id="feedback-5">
+                    <strong>Correct Answer:</strong> A) The whole head and the whole heart<br>
+                    <strong>Explanation:</strong> The verse states "The whole head is sick, and the whole heart faints."
+                </div>
+            </div>
+            
+            <div class="question" data-verse="6">
+                <div class="question-header">
+                    <span class="question-verse">Verse 6</span>
+                </div>
+                <div class="question-text">According to Isaiah 1:6, what is the condition of the body from sole to head?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-6" id="q6-option1" value="A">
+                        <label for="q6-option1">A) No soundness, only wounds and bruises</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-6" id="q6-option2" value="B">
+                        <label for="q6-option2">B) Strong and healthy</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-6" id="q6-option3" value="C">
+                        <label for="q6-option3">C) Covered in glory and honor</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-6" id="q6-option4" value="D">
+                        <label for="q6-option4">D) Prepared for battle</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="6">Check Answer</button>
+                <div class="answer-feedback" id="feedback-6">
+                    <strong>Correct Answer:</strong> A) No soundness, only wounds and bruises<br>
+                    <strong>Explanation:</strong> The verse states "From the sole of the foot even to the head, there is no soundness in it, but wounds and bruises and putrefying sores."
+                </div>
+            </div>
+            
+            <div class="question" data-verse="7">
+                <div class="question-header">
+                    <span class="question-verse">Verse 7</span>
+                </div>
+                <div class="question-text">What does Isaiah 1:7 say has happened to the country and cities?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-7" id="q7-option1" value="A">
+                        <label for="q7-option1">A) Desolate and burned with fire</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-7" id="q7-option2" value="B">
+                        <label for="q7-option2">B) Prosperous and expanding</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-7" id="q7-option3" value="C">
+                        <label for="q7-option3">C) At peace with neighbors</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-7" id="q7-option4" value="D">
+                        <label for="q7-option4">D) Filled with celebration</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="7">Check Answer</button>
+                <div class="answer-feedback" id="feedback-7">
+                    <strong>Correct Answer:</strong> A) Desolate and burned with fire<br>
+                    <strong>Explanation:</strong> The verse states "Your country is desolate, your cities are burned with fire."
+                </div>
+            </div>
+            
+            <div class="question" data-verse="8">
+                <div class="question-header">
+                    <span class="question-verse">Verse 8</span>
+                </div>
+                <div class="question-text">How is the daughter of Zion described in Isaiah 1:8?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-8" id="q8-option1" value="A">
+                        <label for="q8-option1">A) Left as a booth in a vineyard</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-8" id="q8-option2" value="B">
+                        <label for="q8-option2">B) A mighty fortress</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-8" id="q8-option3" value="C">
+                        <label for="q8-option3">C) A prosperous trading post</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-8" id="q8-option4" value="D">
+                        <label for="q8-option4">D) A center of learning</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="8">Check Answer</button>
+                <div class="answer-feedback" id="feedback-8">
+                    <strong>Correct Answer:</strong> A) Left as a booth in a vineyard<br>
+                    <strong>Explanation:</strong> The verse states "So the daughter of Zion is left as a booth in a vineyard, as a hut in a garden of cucumbers, as a besieged city."
+                </div>
+            </div>
+            
+            <div class="question" data-verse="9">
+                <div class="question-header">
+                    <span class="question-verse">Verse 9</span>
+                </div>
+                <div class="question-text">According to Isaiah 1:9, what would have happened without the Lord's intervention?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-9" id="q9-option1" value="A">
+                        <label for="q9-option1">A) They would have become like Sodom and Gomorrah</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-9" id="q9-option2" value="B">
+                        <label for="q9-option2">B) They would have conquered their enemies</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-9" id="q9-option3" value="C">
+                        <label for="q9-option3">C) They would have prospered greatly</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-9" id="q9-option4" value="D">
+                        <label for="q9-option4">D) They would have built a great temple</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="9">Check Answer</button>
+                <div class="answer-feedback" id="feedback-9">
+                    <strong>Correct Answer:</strong> A) They would have become like Sodom and Gomorrah<br>
+                    <strong>Explanation:</strong> The verse states "Unless the Lord of hosts had left to us a very small remnant, we would have become like Sodom, we would have been made like Gomorrah."
+                </div>
+            </div>
+            
+            <div class="question" data-verse="10">
+                <div class="question-header">
+                    <span class="question-verse">Verse 10</span>
+                </div>
+                <div class="question-text">Who does Isaiah 1:10 address as "you rulers of Sodom" and "you people of Gomorrah"?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="question-10" id="q10-option1" value="A">
+                        <label for="q10-option1">A) The people of Judah and Jerusalem</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-10" id="q10-option2" value="B">
+                        <label for="q10-option2">B) The actual people of Sodom and Gomorrah</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-10" id="q10-option3" value="C">
+                        <label for="q10-option3">C) The surrounding nations</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="question-10" id="q10-option4" value="D">
+                        <label for="q10-option4">D) The foreign invaders</label>
+                    </div>
+                </div>
+                <button class="check-answer" data-question="10">Check Answer</button>
+                <div class="answer-feedback" id="feedback-10">
+                    <strong>Correct Answer:</strong> A) The people of Judah and Jerusalem<br>
+                    <strong>Explanation:</strong> Isaiah is using the names of these sinful cities to emphasize how far Judah and Jerusalem have fallen from God's standards.
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-summary" id="results-summary">
+            <h2 class="results-title">Quiz Results</h2>
+            <div class="score">Your score: <span id="score-value">0</span> out of <span id="total-questions">10</span></div>
+            <button class="reset-btn" id="reset-quiz">Reset Quiz</button>
+        </div>
+        
+        <div class="book-info">
+            <h3>About the Book of Isaiah</h3>
+            <p>The Book of Isaiah is the first of the Latter Prophets in the Hebrew Bible and the first of the Major Prophets in the Christian Old Testament. It contains prophecies, warnings, and messages of hope delivered by the prophet Isaiah during the 8th century BCE. Chapter 1 serves as an introduction to the entire book, outlining God's case against Judah for their rebellion and sinfulness, while also offering hope for repentance and restoration.</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 NKJV Bible. All rights reserved.</p>
+        <p>Scripture taken from the New King James Version®. Copyright © 1982 by Thomas Nelson.</p>
+    </footer>
+
+    <script>
+        // Set up variables
+        let userAnswers = {};
+        let quizSubmitted = false;
+
+        // Get DOM elements
+        const checkAnswerButtons = document.querySelectorAll('.check-answer');
+        const resetQuizButton = document.getElementById('reset-quiz');
+        const resultsSummary = document.getElementById('results-summary');
+        const scoreValue = document.getElementById('score-value');
+        const totalQuestions = document.getElementById('total-questions');
+
+        // Function to check answer
+        function checkAnswer(questionNum) {
+            if (quizSubmitted) return;
+            
+            const selectedOption = document.querySelector(`input[name="question-${questionNum}"]:checked`);
+            if (!selectedOption) {
+                alert('Please select an answer first.');
+                return;
+            }
+            
+            const feedbackElement = document.getElementById(`feedback-${questionNum}`);
+            const correctAnswer = 'A'; // All correct answers are A in this example
+            
+            if (selectedOption.value === correctAnswer) {
+                feedbackElement.classList.add('correct');
+                feedbackElement.classList.remove('incorrect');
+                feedbackElement.innerHTML = `<strong>Correct!</strong><br>${feedbackElement.innerHTML}`;
+                userAnswers[questionNum] = true;
+            } else {
+                feedbackElement.classList.add('incorrect');
+                feedbackElement.classList.remove('correct');
+                feedbackElement.innerHTML = `<strong>Incorrect.</strong><br>${feedbackElement.innerHTML}`;
+                userAnswers[questionNum] = false;
+            }
+            
+            feedbackElement.style.display = 'block';
+            
+            // Check if all questions have been answered
+            const allQuestions = document.querySelectorAll('.question');
+            const answeredQuestions = Object.keys(userAnswers).length;
+            
+            if (answeredQuestions === allQuestions.length) {
+                showResults();
+            }
+        }
+
+        // Function to show results
+        function showResults() {
+            quizSubmitted = true;
+            const totalQuestions = document.querySelectorAll('.question').length;
+            const correctAnswers = Object.values(userAnswers).filter(answer => answer).length;
+            
+            scoreValue.textContent = correctAnswers;
+            document.getElementById('total-questions').textContent = totalQuestions;
+            
+            resultsSummary.style.display = 'block';
+            
+            // Scroll to results
+            resultsSummary.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Function to reset quiz
+        function resetQuiz() {
+            userAnswers = {};
+            quizSubmitted = false;
+            
+            // Clear all selections
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            
+            // Hide all feedback
+            document.querySelectorAll('.answer-feedback').forEach(feedback => {
+                feedback.style.display = 'none';
+                feedback.classList.remove('correct', 'incorrect');
+                
+                // Reset feedback content
+                const questionNum = feedback.id.split('-')[1];
+                if (questionNum === '1') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) Isaiah the son of Amoz<br><strong>Explanation:</strong> The verse clearly states "The vision of Isaiah the son of Amoz."';
+                } else if (questionNum === '2') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) The heavens and the earth<br><strong>Explanation:</strong> The verse begins with "Hear, O heavens, and give ear, O earth!"';
+                } else if (questionNum === '3') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) The ox and the donkey<br><strong>Explanation:</strong> The verse states "The ox knows its owner and the donkey its master\'s crib."';
+                } else if (questionNum === '4') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) Sinful nation, laden with iniquity<br><strong>Explanation:</strong> The verse describes them as "sinful nation, a people laden with iniquity, a brood of evildoers."';
+                } else if (questionNum === '5') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) The whole head and the whole heart<br><strong>Explanation:</strong> The verse states "The whole head is sick, and the whole heart faints."';
+                } else if (questionNum === '6') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) No soundness, only wounds and bruises<br><strong>Explanation:</strong> The verse states "From the sole of the foot even to the head, there is no soundness in it, but wounds and bruises and putrefying sores."';
+                } else if (questionNum === '7') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) Desolate and burned with fire<br><strong>Explanation:</strong> The verse states "Your country is desolate, your cities are burned with fire."';
+                } else if (questionNum === '8') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) Left as a booth in a vineyard<br><strong>Explanation:</strong> The verse states "So the daughter of Zion is left as a booth in a vineyard, as a hut in a garden of cucumbers, as a besieged city."';
+                } else if (questionNum === '9') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) They would have become like Sodom and Gomorrah<br><strong>Explanation:</strong> The verse states "Unless the Lord of hosts had left to us a very small remnant, we would have become like Sodom, we would have been made like Gomorrah."';
+                } else if (questionNum === '10') {
+                    feedback.innerHTML = '<strong>Correct Answer:</strong> A) The people of Judah and Jerusalem<br><strong>Explanation:</strong> Isaiah is using the names of these sinful cities to emphasize how far Judah and Jerusalem have fallen from God\'s standards.';
+                }
+            });
+            
+            // Hide results
+            resultsSummary.style.display = 'none';
+        }
+
+        // Add event listeners to check answer buttons
+        checkAnswerButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const questionNum = btn.getAttribute('data-question');
+                checkAnswer(questionNum);
+            });
+        });
+
+        // Add event listener to reset quiz button
+        resetQuizButton.addEventListener('click', resetQuiz);
+
+        // Set total questions count
+        totalQuestions.textContent = document.querySelectorAll('.question').length;
+    </script>
+</body>
+</html>
