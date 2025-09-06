@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PBE Quiz – Isaiah Chapters 1, 9, 26</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; background: #f4f4f4; }
+h1, h2 { color: #333; }
+.tab { display: none; }
+button { padding: 10px 20px; margin: 10px 5px; cursor: pointer; }
+.question { background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+input[type="text"] { width: 80%; padding: 5px; margin-top: 5px; }
+.result { display: none; margin-top: 20px; padding: 15px; background: #dff0d8; border-radius: 5px; }
+.correct { color: green; }
+.incorrect { color: red; }
+</style>
+</head>
+<body>
+
+<h1>PBE Quiz – Isaiah Chapters 1, 9, 26</h1>
+
+<div>
+  <button onclick="showTab('chapter1')">Chapter 1</button>
+  <button onclick="showTab('chapter9')">Chapter 9</button>
+  <button onclick="showTab('chapter26')">Chapter 26</button>
+</div>
+
+<form id="quizForm">
+
+<!-- Chapter 1 -->
+<div id="chapter1" class="tab">
+<h2>Isaiah Chapter 1</h2>
+
+<!-- Multiple Choice Questions 1–15 -->
+<div class="question">
+<p>1. Isaiah 1:1 – The vision of Isaiah was concerning which kingdoms?</p>
+<input type="radio" name="c1q1" value="A"> Judah and Jerusalem<br>
+<input type="radio" name="c1q1" value="B"> Israel and Samaria<br>
+<input type="radio" name="c1q1" value="C"> Ephraim and Judah<br>
+<input type="radio" name="c1q1" value="D"> Moab and Edom
+</div>
+<div class="question">
+<p>2. Isaiah 1:2 – Who does God call to hear His words?</p>
+<input type="radio" name="c1q2" value="A"> Kings<br>
+<input type="radio" name="c1q2" value="B"> Heaven and Earth<br>
+<input type="radio" name="c1q2" value="C"> Prophets<br>
+<input type="radio" name="c1q2" value="D"> Priests
+</div>
+<!-- Add questions 3–15 similarly -->
+
+<!-- Fill-in-the-Blank Questions 16–30 -->
+<div class="question">
+<p>16. Isaiah 1:8 – The city of ______ is left desolate, like a lodge in a field.</p>
+<input type="text" name="c1q16">
+</div>
+<div class="question">
+<p>17. Isaiah 1:18 – God says, “Come now, and let us ______ together.”</p>
+<input type="text" name="c1q17">
+</div>
+<!-- Add questions 18–30 similarly -->
+
+</div>
+
+<!-- Chapter 9 -->
+<div id="chapter9" class="tab">
+<h2>Isaiah Chapter 9</h2>
+
+<!-- Multiple Choice Questions 1–15 -->
+<div class="question">
+<p>1. Isaiah 9:1 – Which regions that were in darkness would see a great light?</p>
+<input type="radio" name="c9q1" value="A"> Judah and Jerusalem<br>
+<input type="radio" name="c9q1" value="B"> Zebulun and Naphtali<br>
+<input type="radio" name="c9q1" value="C"> Ephraim and Manasseh<br>
+<input type="radio" name="c9q1" value="D"> Moab and Edom
+</div>
+<!-- Add questions 2–15 similarly -->
+
+<!-- Fill-in-the-Blank Questions 16–30 -->
+<div class="question">
+<p>16. Isaiah 9:6 – “For unto us a ______ is born, unto us a son is given.”</p>
+<input type="text" name="c9q16">
+</div>
+<!-- Add questions 17–30 similarly -->
+
+</div>
+
+<!-- Chapter 26 -->
+<div id="chapter26" class="tab">
+<h2>Isaiah Chapter 26</h2>
+
+<!-- Multiple Choice Questions 1–15 -->
+<div class="question">
+<p>1. Isaiah 26:1 – What is said about the city of Zion?</p>
+<input type="radio" name="c26q1" value="A"> It has strong walls of salvation<br>
+<input type="radio" name="c26q1" value="B"> It is the largest city<br>
+<input type="radio" name="c26q1" value="C"> It is a city of merchants<br>
+<input type="radio" name="c26q1" value="D"> It is an abandoned city
+</div>
+<!-- Add questions 2–15 similarly -->
+
+<!-- Fill-in-the-Blank Questions 16–30 -->
+<div class="question">
+<p>16. Isaiah 26:3 – “You will keep him in perfect ______, whose mind is stayed on You.”</p>
+<input type="text" name="c26q16">
+</div>
+<!-- Add questions 17–30 similarly -->
+
+</div>
+
+<button type="button" onclick="checkAnswers()">Submit All Answers</button>
+</form>
+
+<div id="result" class="result"></div>
+
+<script>
+// Complete answers object using Word workbook answers
+const answers = {
+  // Chapter 1
+  c1q1:"A", c1q2:"B", c1q16:"Jerusalem", c1q17:"reason",
+  // Fill in all 30 answers for chapter 1
+  // Chapter 9
+  c9q1:"B", c9q16:"Child",
+  // Fill in all 30 answers for chapter 9
+  // Chapter 26
+  c26q1:"A", c26q16:"peace"
+  // Fill in all 30 answers for chapter 26
+};
+
+function showTab(tabId){
+  document.querySelectorAll('.tab').forEach(tab => tab.style.display='none');
+  document.getElementById(tabId).style.display='block';
+}
+
+function checkAnswers(){
+  let score = 0;
+  let total = Object.keys(answers).length;
+  let resultHTML = "<h2>Results:</h2>";
+
+  for(let key in answers){
+    let el = document.querySelector(`[name="${key}"]`);
+    if(!el) continue;
+    let userAnswer = "";
+    if(el.type === "radio" || el[0].type === "radio"){
+      let selected = document.querySelector(`[name="${key}"]:checked`);
+      userAnswer = selected ? selected.value : "";
+      if(userAnswer === answers[key]) score++;
+    } else {
+      userAnswer = el.value.trim();
+      if(userAnswer.toLowerCase() === answers[key].toLowerCase()) score++;
+    }
+    resultHTML += `<p>${key}: Your answer - <strong>${userAnswer}</strong>, Correct - <strong>${answers[key]}</strong></p>`;
+  }
+
+  resultHTML += `<h3>Total Score: ${score} / ${total}</h3>`;
+  document.getElementById('result').innerHTML = resultHTML;
+  document.getElementById('result').style.display = 'block';
+}
+
+// Show Chapter 1 by default
+showTab('chapter1');
+</script>
+
+</body>
+</html>
